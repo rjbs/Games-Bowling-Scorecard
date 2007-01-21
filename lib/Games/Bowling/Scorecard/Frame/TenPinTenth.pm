@@ -11,13 +11,13 @@ Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
 
 =head1 VERSION
 
-version 0.001
+version 0.011
 
   $Id$
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.011';
 
 =head1 DESCRIPTION
 
@@ -77,4 +77,3 @@ under the same terms as Perl itself.
 =cut
 
 300;
-

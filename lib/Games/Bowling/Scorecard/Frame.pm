@@ -10,13 +10,13 @@ Games::Bowling::Scorecard::Frame - one frame on a scorecard
 
 =head1 VERSION
 
-version 0.001
+version 0.011
 
   $Id$
 
 =cut
 
-our $VERSION = 0.001;
+our $VERSION = 0.011;
 
 use Carp ();
 
@@ -158,4 +158,3 @@ under the same terms as Perl itself.
 =cut
 
 300;
-
