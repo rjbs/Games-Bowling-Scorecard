@@ -53,6 +53,16 @@ scorecards to your dynamic Gopher site.  Games::Bowling::Scorecard has taken
 care of the scoring, but now you need to worry about all those slashes and
 dashes and X's
 
+=head1 METHODS
+
+=head2 card_as_text
+
+  my $text = Games::Bowling::Scorecard::AsText->card_as_text($card);
+
+Given a scorecard, this method returns a three-line text version of the card,
+using standard notation.  A total is kept only through the last non-pending
+frame.
+
 =cut
 
 use Carp ();
@@ -74,9 +84,9 @@ sub card_as_text {
 
     my ($b1, $b2) = $frame->balls;
 
-    $balls .= sprintf '| %s ', $self->two_balls($b1, $b2);
+    $balls .= sprintf '| %s ', $self->_two_balls($b1, $b2);
 
-    my $score = $self->score_through($card, $i + 1);
+    my $score = $card->score_through($i + 1);
     $scores .= defined $score
              ? sprintf '| %3u ', $score
              : '|     ';
@@ -90,9 +100,9 @@ sub card_as_text {
       last TENTH;
     }
 
-    $balls .= sprintf '| %s |', $self->three_balls($frame->balls);
+    $balls .= sprintf '| %s |', $self->_three_balls($frame->balls);
 
-    my $score = $self->score_through($card, 10);
+    my $score = $card->score_through(10);
     $scores .= defined $score
              ? sprintf '|   %3u |', $score
              : '|       |';
@@ -102,27 +112,7 @@ sub card_as_text {
        . "$balls\n"
        . "$scores\n";
 }
-
-sub score_through {
-  my ($self, $card, $which_frame) = @_;
-
-  Carp::croak "frame out of range"
-    unless $which_frame >= 1 and $which_frame <= 10;
-
-  my @frames = $card->frames;
-  my $score = 0;
-
-  INDEX: for my $idx (0 .. $which_frame - 1) {
-    my $frame = $frames[ $idx ];
-    return undef if $frame->is_pending or not $frame->is_done;
-
-    $score += $frame->score;
-  }
-
-  return $score;
-}
-
-sub two_balls {
+sub _two_balls {
   my ($self, $b1, $b2) = @_;
 
   sprintf '%s %s',
@@ -130,7 +120,7 @@ sub two_balls {
     $b1 == 10 ? ' ' : defined $b2 ? $b1 + $b2 == 10 ? '/' : $b2 || '-' : ' ';
 }
 
-sub three_balls {
+sub _three_balls {
   my ($self, $b1, $b2, $b3) = @_;
 
   if ($b1 == 10) {
@@ -139,16 +129,36 @@ sub three_balls {
     return sprintf 'X X %s', defined $b3 ? $b3 == 10 ? 'X' : $b3 || '-' : ' '
       if $b2 == 10;
 
-    return sprintf 'X %s', $self->two_balls($b2, $b3);
+    return sprintf 'X %s', $self->_two_balls($b2, $b3);
   } elsif (not defined $b2) {
     return sprintf '%s    ', $b1 || '-';
   } elsif ($b1 + $b2 == 10) {
     return sprintf '%s %s',
-      $self->two_balls($b1, $b2),
+      $self->_two_balls($b1, $b2),
       defined $b3 ? $b3 || '-' : ' ';
   } else {
-    return sprintf '%s  ', $self->two_balls($b1, $b3);
+    return sprintf '%s  ', $self->_two_balls($b1, $b3);
   }
 }
+
+=head1 AUTHOR
+
+Ricardo SIGNES, C<< <rjbs at cpan.org> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
+will be notified, and then you'll automatically be notified of progress on your
+bug as I make changes.
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2007 Ricardo SIGNES, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 
 300;
