@@ -16,6 +16,8 @@ version 0.001
 
 =cut
 
+our $VERSION = 0.001;
+
 use Carp ();
 
 =head1 METHODS
@@ -156,3 +158,4 @@ under the same terms as Perl itself.
 =cut
 
 300;
+

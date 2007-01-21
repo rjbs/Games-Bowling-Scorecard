@@ -13,6 +13,10 @@ version 0.001
 
   $Id$
 
+=cut
+
+our $VERSION = 0.001;
+
 =head1 SYNOPSIS
 
   use Games::Bowling::Scorecard;

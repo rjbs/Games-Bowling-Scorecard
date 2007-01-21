@@ -15,6 +15,10 @@ version 0.001
 
   $Id$
 
+=cut
+
+our $VERSION = '0.01';
+
 =head1 DESCRIPTION
 
 The tenth frame of ten pin bowling is weird.  If you bowl a strike or spare,
@@ -73,3 +77,4 @@ under the same terms as Perl itself.
 =cut
 
 300;
+
