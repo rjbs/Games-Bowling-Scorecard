@@ -12,7 +12,7 @@ Games::Bowling::Scorecard::AsText - format a bowling scorecard as text
 
 version 0.011
 
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard.pm 30255 2007-01-21T19:09:26.950988Z rjbs  $
+  $Id$
 
 =cut
 
