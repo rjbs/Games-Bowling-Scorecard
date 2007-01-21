@@ -1,8 +1,9 @@
+#!perl -T
 
 use strict;
 use warnings;
 
-use Test::More tests => 34;
+use Test::More tests => 35;
 
 my $class = 'Games::Bowling::Scorecard';
 
@@ -23,6 +24,11 @@ use_ok($class);
 
   eval { $card->record(0); };
   ok($@, "trying to record a ball after we're done dies");
+
+  ok(
+    ! $card->current_frame,
+    "once we're done, there is no current frame",
+  );
 }
 
 { # worst possible game, always hitting a pin

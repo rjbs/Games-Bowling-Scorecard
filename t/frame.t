@@ -1,8 +1,9 @@
+#!perl -T
 
 use strict;
 use warnings;
 
-use Test::More tests => 37;
+use Test::More tests => 38;
 
 my $class = 'Games::Bowling::Scorecard::Frame';
 
@@ -26,6 +27,9 @@ use_ok($class);
   is($frame->score, 8,     "bowled 5/3: score 8");
   ok($frame->is_done,      "after two balls, we're done");
   ok(! $frame->is_pending, "an open frame doesn't end up pending");
+
+  eval { $frame->record(10); };
+  ok($@, "we get an exception when recording against a done/!pending frame");
 }
 
 { # let's bowl a spare

@@ -18,6 +18,16 @@ version 0.011
 
 our $VERSION = 0.011;
 
+=head1 DESCRIPTION
+
+A frame is one attempt to knock down all ten pins -- unless it's the tenth
+frame, in which case it's so goofy that you need to use a different class,
+L<Games::Bowling::Scorecard::Frame::TenPinTenth>.  A frame is done when you've
+bowled twice or knocked down all the pins, and it's pending until its score can
+be definitively be stated.
+
+=cut
+
 use Carp ();
 
 =head1 METHODS
@@ -50,7 +60,7 @@ and whether the frame is done or pending.
 
 =cut
 
-sub record {
+sub record { ## no critic Ambiguous
   my ($self, $ball) = @_;
 
   if ($self->is_done) {
@@ -59,7 +69,7 @@ sub record {
       $self->{score} += $ball;
       return;
     } else {
-      Carp::croak "two balls already recorded for frame" if $self->is_done;
+      Carp::croak "two balls already recorded for frame";
     }
   }
 

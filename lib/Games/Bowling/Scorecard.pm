@@ -100,7 +100,7 @@ sub current_frame {
 
   my $frame = pop @frames;
 
-  return $self->_next_frame if !$frame or $frame->is_done;
+  return $self->_next_frame if !$frame || $frame->is_done;
 
   return $frame;
 }
@@ -156,7 +156,7 @@ done.
 
 =cut
 
-sub record {
+sub record { ## no critic Ambiguous
   my ($self, @balls) = @_;
   
   for my $ball (@balls) {
@@ -201,6 +201,14 @@ sub is_done {
 
   return (@frames == 10 and $frames[9]->is_done);
 }
+
+=head1 TODO
+
+=over
+
+=item * maybe a way to indicate a split
+
+=back
 
 =head1 AUTHOR
 
