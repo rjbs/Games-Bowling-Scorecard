@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More 'no_plan';
+use Test::More tests => 37;
 
 my $class = 'Games::Bowling::Scorecard::Frame::TenPinTenth';
 
