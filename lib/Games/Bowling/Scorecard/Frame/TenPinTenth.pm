@@ -5,6 +5,19 @@ use warnings;
 package Games::Bowling::Scorecard::Frame::TenPinTenth;
 use base qw(Games::Bowling::Scorecard::Frame);
 
+=head1 NAME
+
+Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
+
+=head1 VERSION
+
+version 0.001
+
+  $Id$
+
+=cut
+
+
 sub is_done {
   my ($self) = @_;
 

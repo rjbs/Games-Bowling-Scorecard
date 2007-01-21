@@ -4,6 +4,19 @@ use warnings;
 
 package Games::Bowling::Scorecard::Frame;
 
+=head1 NAME
+
+Games::Bowling::Scorecard::Frame - one frame on a scorecard
+
+=head1 VERSION
+
+version 0.001
+
+  $Id$
+
+=cut
+
+
 use Carp ();
 
 sub new {

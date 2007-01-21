@@ -7,6 +7,12 @@ package Games::Bowling::Scorecard;
 
 Games::Bowling::Scorecard - score your bowling game easily
 
+=head1 VERSION
+
+version 0.001
+
+  $Id$
+
 =cut
 
 use Games::Bowling::Scorecard::Frame;
@@ -14,10 +20,7 @@ use Games::Bowling::Scorecard::Frame;
 sub new {
   my ($class) = @_;
 
-  my $self = bless {
-    frames => [ ],
-    score  => 0,
-  } => $class;
+  my $self = bless { frames => [ ] } => $class;
 
   return $self;
 }
