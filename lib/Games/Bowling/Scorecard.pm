@@ -198,4 +198,32 @@ sub is_done {
   return (@frames == 10 and $frames[9]->is_done);
 }
 
-1;
+=head1 AUTHOR
+
+Ricardo SIGNES, C<< <rjbs at cpan.org> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
+will be notified, and then you'll automatically be notified of progress on your
+bug as I make changes.
+
+=head1 SECRET ORIGINS
+
+In late 2006, I hadn't bowled in something like ten years.  I got a Wii, and
+while I recognized the little triangle and X marks on the Wii Sports Bowling
+scorecard, I couldn't remember how on earth scoring worked.  Once I thought I
+had a handle on it, I thought writing this would be a good way to cement it in
+my mind.
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2007 Ricardo SIGNES, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+300;
