@@ -1,5 +1,8 @@
 Changelog for Games-Bowling-Scorecard
 
+0.100    2007-01-21
+         add roll_ok checks
+
 0.011    2007-01-21
          fix version code/doc mismatches
          add score_through method

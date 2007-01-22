@@ -73,6 +73,8 @@ sub record { ## no critic Ambiguous
     }
   }
 
+  $self->roll_ok($ball);
+
   push @{ $self->{balls} }, $ball;
   $self->{score} += $ball;
 
@@ -96,6 +98,34 @@ sub _check_done {
   my @balls = $self->balls;
 
   $self->{done} = 1 if (@balls == 1 and $balls[0] == 10) or @balls == 2;
+}
+
+=head2 roll_ok
+
+  $frame->roll_ok($ball);
+
+This method asserts that given value is an acceptable number to score next in
+this frame.  It checks that:
+
+  * the frame is not already done
+  * $ball is defined, an integer, and between 0 and 10
+  * $ball would not bring the total number of pins downed above 10
+
+=cut
+
+sub roll_ok {
+  my ($self, $ball) = @_;
+
+  Carp::croak "the frame is done" if $self->is_done;
+  Carp::croak "you can't bowl an undefined number of pins!" if !defined $ball;
+  Carp::croak "you can't bowl more than 10 on a single ball" if $ball > 10;
+  Carp::croak "you can't bowl less than 0 on a single ball" if $ball < 0;
+  Carp::croak "you can't knock down a partial pin" if $ball != int($ball);
+
+  my $i = 0;
+  $i += $_ for $self->balls, $ball;
+
+  Carp::croak "bowling a $ball would bring the frame above 10" if $i > 10;
 }
 
 =head2 score
