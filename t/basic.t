@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 35;
+use Test::More tests => 45;
 
 my $class = 'Games::Bowling::Scorecard';
 
@@ -109,6 +109,16 @@ use_ok($class);
   #  19  19  19  19  19  19  19  19  19  10
   #  19  38  57  76  95 114 133 152 171 181
   is($card->score, 181, "after ten spares, we're standing at 181");
+
+  for (1 .. 8) {
+    is($card->score_through($_), 19 * $_, "correct score through frame $_");
+  }
+
+  eval { $card->score_through(0) };
+  like($@, qr/out of range/, "exception thrown scoring 'through 0'");
+
+  eval { $card->score_through(11) };
+  like($@, qr/out of range/, "exception thrown scoring 'through 11'");
 
   {
     my ($last_frame) = $card->current_frame;

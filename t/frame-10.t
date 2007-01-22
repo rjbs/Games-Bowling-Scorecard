@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 37;
+use Test::More tests => 52;
 
 my $class = 'Games::Bowling::Scorecard::Frame::TenPinTenth';
 
@@ -78,6 +78,39 @@ use_ok($class);
   # second extra ball score
   $frame->record(4);
   is($frame->score, 19,    "a 4 after a 5 after a strike: score 19");
+  ok($frame->is_done,      "...and now we're done");
+  ok(! $frame->is_pending, "...and now we're STILL not pending");
+}
+
+{ # let's bowl three strikes in the third; yeah, we rock
+  my $frame = $class->new;
+
+  isa_ok($frame, $class);
+
+  is($frame->score, 0,     "frames start with a zero score");
+  ok(! $frame->is_done,    "frames do not start done");
+  ok(! $frame->is_pending, "frames do not start pending");
+
+  $frame->record(10);
+  is($frame->score, 10,    "a strike!  tentative score: 10");
+  ok(! $frame->is_done,    "in the 10th, we're not done even after a strike");
+  ok(! $frame->is_pending, "but we're not pending");
+
+  eval { $frame->roll_ok(10) };
+  is($@, '', "it is OK to roll more than 10 pins, total, in the tenth frame");
+
+  eval { $frame->roll_ok(11) };
+  like($@, qr/more than 10/, "but it's still not okay to roll an ELEVEN");
+
+  # first extra ball score
+  $frame->record(10);
+  is($frame->score, 20,    "two strikes in a row; tentative score: 10");
+  ok(! $frame->is_done,    "we're still not done");
+  ok(! $frame->is_pending, "but we are still not pending either");
+  
+  # second extra ball score
+  $frame->record(10);
+  is($frame->score, 30,    "a turkey in the tenth gives a frame score of 30");
   ok($frame->is_done,      "...and now we're done");
   ok(! $frame->is_pending, "...and now we're STILL not pending");
 }

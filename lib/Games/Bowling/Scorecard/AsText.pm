@@ -10,13 +10,13 @@ Games::Bowling::Scorecard::AsText - format a bowling scorecard as text
 
 =head1 VERSION
 
-version 0.011
+version 0.100
 
   $Id$
 
 =cut
 
-our $VERSION = 0.011;
+our $VERSION = 0.100;
 
 =head1 SYNOPSIS
 
@@ -101,6 +101,7 @@ sub card_as_text {
     $balls .= sprintf '| %s |', $self->_three_balls($frame->balls);
 
     my $score = $card->score_through(10);
+
     $scores .= defined $score
              ? sprintf '|   %3u |', $score
              : '|       |';

@@ -11,13 +11,13 @@ Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
 
 =head1 VERSION
 
-version 0.011
+version 0.100
 
   $Id$
 
 =cut
 
-our $VERSION = '0.011';
+our $VERSION = '0.100';
 
 =head1 DESCRIPTION
 
