@@ -82,9 +82,7 @@ sub card_as_text {
       next INDEX;
     }
 
-    my ($b1, $b2) = $frame->balls;
-
-    $balls .= sprintf '| %s ', $self->_two_balls($b1, $b2);
+    $balls .= sprintf '| %s ', $self->_two_balls($frame->balls);
 
     my $score = $card->score_through($i + 1);
     $scores .= defined $score
@@ -95,7 +93,7 @@ sub card_as_text {
   TENTH: for (1) {
     my $frame = $frames[ 9 ];
 
-    unless ($frame and $frame->balls) {
+    unless ($frame) {
       $_ .= '|       |' for $balls, $scores;
       last TENTH;
     }
@@ -112,8 +110,11 @@ sub card_as_text {
        . "$balls\n"
        . "$scores\n";
 }
+
 sub _two_balls {
   my ($self, $b1, $b2) = @_;
+
+  return '   ' unless defined $b1;
 
   sprintf '%s %s',
     $b1 == 10 ? 'X' : $b1 || '-',
@@ -122,6 +123,8 @@ sub _two_balls {
 
 sub _three_balls {
   my ($self, $b1, $b2, $b3) = @_;
+
+  return '     ' unless defined $b1;
 
   if ($b1 == 10) {
     return 'X    ' unless defined $b2;
@@ -135,9 +138,9 @@ sub _three_balls {
   } elsif ($b1 + $b2 == 10) {
     return sprintf '%s %s',
       $self->_two_balls($b1, $b2),
-      defined $b3 ? $b3 || '-' : ' ';
+      defined $b3 ? $b3 == 10 ? 'X' : $b3 || '-' : ' ';
   } else {
-    return sprintf '%s  ', $self->_two_balls($b1, $b3);
+    return sprintf '%s  ', $self->_two_balls($b1, $b2);
   }
 }
 

@@ -2,6 +2,8 @@ Changelog for Games-Bowling-Scorecard
 
 0.100    2007-01-21
          add roll_ok checks
+         fix a number of AsText bugs for tenth frame
+         improve tests for AsText
 
 0.011    2007-01-21
          fix version code/doc mismatches

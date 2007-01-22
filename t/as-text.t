@@ -3,10 +3,12 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;
+use Test::More tests => 32;
 
-use Games::Bowling::Scorecard;
-use Games::Bowling::Scorecard::AsText;
+my $class = 'Games::Bowling::Scorecard::AsText';
+
+use_ok('Games::Bowling::Scorecard');
+use_ok($class);
 
 my $card = Games::Bowling::Scorecard->new;
 
@@ -26,7 +28,73 @@ my $expected = <<'END_TEXT';
 END_TEXT
 
 is(
-  Games::Bowling::Scorecard::AsText->card_as_text($card),
+  $class->card_as_text($card),
   $expected,
   "our scorecard stringifies as we expected",
 );
+
+## little bits tested below
+
+sub ok2 {
+  my ($b1, $b2, $expected) = @_;
+
+  my $string = sprintf '(%s, %s)',
+    defined $b1 ? $b1 : 'undef',
+    defined $b2 ? $b2 : 'undef';
+
+  is(
+    $class->_two_balls($b1, $b2),
+    $expected,
+    "two balls: $string -> '$expected'"
+  );
+}
+
+ok2( (0, undef),     "-  ");
+ok2( (undef, undef), "   ");
+
+ok2( ( 0, 0), "- -");
+ok2( ( 0, 1), "- 1");
+ok2( ( 1, 0), "1 -");
+ok2( ( 1, 1), "1 1");
+ok2( ( 1, 9), "1 /");
+ok2( ( 9, 1), "9 /");
+ok2( (10, 0), "X  ");
+ok2( (10, undef), "X  ");
+
+sub ok3 {
+  my ($b1, $b2, $b3, $expected) = @_;
+
+  my $string = sprintf '(%s, %s, %s)',
+    defined $b1 ? $b1 : 'undef',
+    defined $b2 ? $b2 : 'undef',
+    defined $b3 ? $b3 : 'undef';
+
+  is(
+    $class->_three_balls($b1, $b2, $b3),
+    $expected,
+    "three balls: $string -> '$expected'"
+  );
+}
+
+ok3( (undef, undef, undef) => '     ');
+ok3( (    0, undef, undef) => '-    ');
+ok3( (    0,     1, undef) => '- 1  ');
+
+ok3( (    9, undef, undef) => '9    ');
+ok3( (    9,     0, undef) => '9 -  ');
+ok3( (    9,     0,     0) => '9 -  ');
+ok3( (    9,     1, undef) => '9 /  ');
+ok3( (    9,     1,     9) => '9 / 9');
+ok3( (    9,     1,    10) => '9 / X');
+
+ok3( (   10, undef, undef) => 'X    ');
+ok3( (   10,     0, undef) => 'X -  ');
+ok3( (   10,     0,     0) => 'X - -');
+ok3( (   10,     1, undef) => 'X 1  ');
+ok3( (   10,     1,     1) => 'X 1 1');
+ok3( (   10,     1,     9) => 'X 1 /');
+
+ok3( (   10,    10, undef) => 'X X  ');
+ok3( (   10,    10,     0) => 'X X -');
+ok3( (   10,    10,     1) => 'X X 1');
+ok3( (   10,    10,    10) => 'X X X');
