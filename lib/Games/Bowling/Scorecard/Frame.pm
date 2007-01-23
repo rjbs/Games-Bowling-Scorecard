@@ -16,7 +16,7 @@ version 0.100
 
 =cut
 
-our $VERSION = 0.100;
+our $VERSION = '0.100';
 
 =head1 DESCRIPTION
 
