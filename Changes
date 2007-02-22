@@ -1,5 +1,8 @@
 Changelog for Games-Bowling-Scorecard
 
+0.101    2007-02-22
+         add README (for kwalitee)
+
 0.100    2007-01-22
          add roll_ok checks
          improve test coverage
