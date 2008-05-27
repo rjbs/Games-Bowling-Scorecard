@@ -1,5 +1,8 @@
 Changelog for Games-Bowling-Scorecard
 
+0.102    2008-05-27
+         experiment in dist packaging: no MANIFEST included
+
 0.101    2007-02-22
          add README (for kwalitee)
 

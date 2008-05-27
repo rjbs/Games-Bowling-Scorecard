@@ -9,13 +9,11 @@ Games::Bowling::Scorecard - score your bowling game easily
 
 =head1 VERSION
 
-version 0.101
-
-  $Id$
+version 0.102
 
 =cut
 
-our $VERSION = '0.101';
+our $VERSION = '0.102';
 
 =head1 SYNOPSIS
 
