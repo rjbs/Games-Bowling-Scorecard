@@ -10,11 +10,11 @@ Games::Bowling::Scorecard::Frame - one frame on a scorecard
 
 =head1 VERSION
 
-version 0.102
+version 0.103
 
 =cut
 
-our $VERSION = '0.102';
+our $VERSION = '0.103';
 
 =head1 DESCRIPTION
 

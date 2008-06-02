@@ -1,5 +1,8 @@
 Changelog for Games-Bowling-Scorecard
 
+0.103    2008-06-02
+         experiment in dist packaging: this dist not built by EUMM, MI, or MB
+
 0.102    2008-05-27
          experiment in dist packaging: no MANIFEST included
 

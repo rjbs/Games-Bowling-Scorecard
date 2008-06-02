@@ -10,11 +10,11 @@ Games::Bowling::Scorecard::AsText - format a bowling scorecard as text
 
 =head1 VERSION
 
-version 0.102
+version 0.103
 
 =cut
 
-our $VERSION = '0.102';
+our $VERSION = '0.103';
 
 =head1 SYNOPSIS
 
