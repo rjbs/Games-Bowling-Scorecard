@@ -1,19 +1,7 @@
 use strict;
 use warnings;
-
 package Games::Bowling::Scorecard;
-
-=head1 NAME
-
-Games::Bowling::Scorecard - score your bowling game easily
-
-=head1 VERSION
-
-version 0.103
-
-=cut
-
-our $VERSION = '0.103';
+# ABSTRACT: score your bowling game easily
 
 =head1 SYNOPSIS
 
@@ -48,9 +36,7 @@ scoring device -- maybe on a mobile phone running Symbian Perl.
 
 use Games::Bowling::Scorecard::Frame;
 
-=head1 METHODS
-
-=head2 new
+=method new
 
 This returns a new scorecard object.  It does not take any arguments.
 
@@ -64,7 +50,7 @@ sub new {
   return $self;
 }
 
-=head2 frames
+=method frames
 
   my @frames = $card->frames;
 
@@ -82,7 +68,7 @@ sub frames {
   return @{ $self->{frames} };
 }
 
-=head2 current_frame
+=method current_frame
 
 The current frame is the frame into which the next ball will be recorded.  If
 the card is done, this method returns false.
@@ -118,7 +104,7 @@ sub _next_frame {
   return $frame;
 }
 
-=head2 pending_frames
+=method pending_frames
 
 This method returns any completed frames the score of which has not yet been
 finalized.  This includes spares and strikes, before the next ball or balls
@@ -132,7 +118,7 @@ sub pending_frames {
   my @pending_frames = grep { $_->is_pending } $self->frames;
 }
 
-=head2 record
+=method record
 
   $card->record(@balls);
 
@@ -146,7 +132,7 @@ For example:
   $card->record(6, 4);  # a spare
 
   $card->record( (0, 0) x 10); # the worst game you could play
-  
+
   $card->record( (10) x 12 ); # a perfect game
 
 An exception will be raised if this method is called on a scorecard that's
@@ -156,7 +142,7 @@ done.
 
 sub record { ## no critic Ambiguous
   my ($self, @balls) = @_;
-  
+
   for my $ball (@balls) {
     Carp::croak "can't record more balls on a completed scorecard"
       if $self->is_done;
@@ -169,7 +155,7 @@ sub record { ## no critic Ambiguous
   }
 }
 
-=head2 score
+=method score
 
 This method returns the current score.  It will include the tentative score for
 all pending frames.
@@ -185,7 +171,7 @@ sub score {
   return $score;
 }
 
-=head2 score_through
+=method score_through
 
   my $score = $card->score_through($n)
 
@@ -213,7 +199,7 @@ sub score_through {
   return $score;
 }
 
-=head2 is_done
+=method is_done
 
 This returns true if the scorecard is done.  The scorecard is done if its
 contents indicate that the player's game is over.
@@ -230,22 +216,8 @@ sub is_done {
 
 =head1 TODO
 
-=over
-
-=item * maybe a way to indicate a split
-
-=back
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< <rjbs at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
-will be notified, and then you'll automatically be notified of progress on your
-bug as I make changes.
+=for :list
+* maybe a way to indicate a split
 
 =head1 SECRET ORIGINS
 
@@ -254,13 +226,6 @@ while I recognized the little triangle and X marks on the Wii Sports Bowling
 scorecard, I couldn't remember how on earth scoring worked.  Once I thought I
 had a handle on it, I thought writing this would be a good way to cement it in
 my mind.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
 
 =cut
 

@@ -1,20 +1,8 @@
-
 use strict;
 use warnings;
 
 package Games::Bowling::Scorecard::Frame;
-
-=head1 NAME
-
-Games::Bowling::Scorecard::Frame - one frame on a scorecard
-
-=head1 VERSION
-
-version 0.103
-
-=cut
-
-our $VERSION = '0.103';
+# ABSTRACT: one frame on a scorecard
 
 =head1 DESCRIPTION
 
@@ -28,9 +16,7 @@ be definitively be stated.
 
 use Carp ();
 
-=head1 METHODS
-
-=head2 new
+=method new
 
 This method returns a new frame object.
 
@@ -48,7 +34,7 @@ sub new {
   } => $class;
 }
 
-=head2 record
+=method record
 
   $frame->record($ball);
 
@@ -98,7 +84,7 @@ sub _check_done {
   $self->{done} = 1 if (@balls == 1 and $balls[0] == 10) or @balls == 2;
 }
 
-=head2 roll_ok
+=method roll_ok
 
   $frame->roll_ok($ball);
 
@@ -126,7 +112,7 @@ sub roll_ok {
   Carp::croak "bowling a $ball would bring the frame above 10" if $i > 10;
 }
 
-=head2 score
+=method score
 
 This method returns the current score for the frame, even if the frame is not
 done or is pending further balls.
@@ -138,7 +124,7 @@ sub score {
   return $self->{score};
 }
 
-=head2 is_pending
+=method is_pending
 
 This method returns true if the frame is pending more balls -- that is, it
 returns true for strikes or spares which have not yet recorded the results of
@@ -151,7 +137,7 @@ sub is_pending {
   return $self->{pending};
 }
 
-=head2 is_done
+=method is_done
 
 This method returns true if the frame is done.
 
@@ -162,7 +148,7 @@ sub is_done {
   return $self->{done};
 }
 
-=head2 balls
+=method balls
 
 This method returns the balls recorded against the frame, each ball returned as
 the number of pins it knocked down.  In scalar context, it returns the number
@@ -174,25 +160,5 @@ sub balls {
   my ($self) = @_;
   return @{ $self->{balls} };
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< <rjbs at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
-will be notified, and then you'll automatically be notified of progress on your
-bug as I make changes.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-=cut
 
 300;

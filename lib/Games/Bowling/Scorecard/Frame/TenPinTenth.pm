@@ -1,21 +1,9 @@
-
 use strict;
 use warnings;
 
 package Games::Bowling::Scorecard::Frame::TenPinTenth;
-use base qw(Games::Bowling::Scorecard::Frame);
-
-=head1 NAME
-
-Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
-
-=head1 VERSION
-
-version 0.103
-
-=cut
-
-our $VERSION = '0.103';
+use parent qw(Games::Bowling::Scorecard::Frame);
+# ABSTRACT: ten pin's weird 10th frame
 
 =head1 DESCRIPTION
 
@@ -26,9 +14,7 @@ the tenth frame are strikes, the second ball is not counted as a "pending"
 strike.  If this is confusing, don't worry!  That's why you're using this
 module.
 
-=head1 METHODS
-
-=head2 is_done
+=method is_done
 
 The tenth frame is done if: (a) three balls have been bowled or (b) two balls
 have been bowled, totalling less than ten.
@@ -44,7 +30,7 @@ sub is_done {
   return;
 }
 
-=head2 is_pending
+=method is_pending
 
 The tenth frame is never pending.  Once it's done, its score is final.
 
@@ -54,7 +40,7 @@ sub is_pending {
   return 0;
 }
 
-=head2 roll_ok
+=method roll_ok
 
 The tenth frame's C<roll_ok> is identical to the standard C<roll_ok>, but
 replaces the "can't total more than 10" rule with a more complex rule.
@@ -71,25 +57,5 @@ sub roll_ok {
     die $error;
   }
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< <rjbs at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
-will be notified, and then you'll automatically be notified of progress on your
-bug as I make changes.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-=cut
 
 300;

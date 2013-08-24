@@ -1,20 +1,7 @@
-
 use strict;
 use warnings;
-
 package Games::Bowling::Scorecard::AsText;
-
-=head1 NAME
-
-Games::Bowling::Scorecard::AsText - format a bowling scorecard as text
-
-=head1 VERSION
-
-version 0.103
-
-=cut
-
-our $VERSION = '0.103';
+# ABSTRACT: format a bowling scorecard as text
 
 =head1 SYNOPSIS
 
@@ -51,9 +38,7 @@ scorecards to your dynamic Gopher site.  Games::Bowling::Scorecard has taken
 care of the scoring, but now you need to worry about all those slashes and
 dashes and X's
 
-=head1 METHODS
-
-=head2 card_as_text
+=method card_as_text
 
   my $text = Games::Bowling::Scorecard::AsText->card_as_text($card);
 
@@ -67,7 +52,7 @@ use Carp ();
 
 sub card_as_text {
   my ($self, $card) = @_;
-  
+
   my $hdr = '+-----+-----+-----+-----+-----+-----+-----+-----+-----+-------+';
   my $balls  = '';
   my $scores = '';
@@ -142,25 +127,5 @@ sub _three_balls {
     return sprintf '%s  ', $self->_two_balls($b1, $b2);
   }
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES, C<< <rjbs at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
-will be notified, and then you'll automatically be notified of progress on your
-bug as I make changes.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-=cut
 
 300;
