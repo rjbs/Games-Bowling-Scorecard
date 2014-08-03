@@ -44,8 +44,17 @@ and whether the frame is done or pending.
 
 =cut
 
+sub _split_ok { return ! @{ $_[0]{balls} } }
+
 sub record { ## no critic Ambiguous
-  my ($self, $ball) = @_;
+  my ($self, $ball, $arg) = @_;
+
+  if ($arg->{split}) {
+    Carp::croak "can't record a split on second ball in a frame"
+      unless $self->_split_ok;
+
+    $self->{split} = 1;
+  }
 
   if ($self->is_done) {
     if ($self->is_pending) {
@@ -64,6 +73,10 @@ sub record { ## no critic Ambiguous
 
   $self->_check_done;
   $self->_check_pending;
+}
+
+sub was_split {
+  return $_[0]->{split} ? 1 : 0;
 }
 
 sub _check_pending {

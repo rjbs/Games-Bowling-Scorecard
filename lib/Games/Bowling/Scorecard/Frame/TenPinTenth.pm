@@ -58,4 +58,6 @@ sub roll_ok {
   }
 }
 
+sub _split_ok { return @{ $_[0]{balls} } <= 2 }
+
 300;

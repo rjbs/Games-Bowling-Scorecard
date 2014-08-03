@@ -1,9 +1,7 @@
 use strict;
 use warnings;
-package Games::Bowling::Scorecard::AsText;
-# ABSTRACT: format a bowling scorecard as text
-
-use utf8;
+package Games::Bowling::Scorecard::AsASCII;
+# ABSTRACT: format a bowling scorecard as ASCII text
 
 =head1 SYNOPSIS
 
@@ -55,8 +53,7 @@ use Carp ();
 sub card_as_text {
   my ($self, $card) = @_;
 
-  my $hdr = '┏━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━━━┓';
-  my $ftr = '┗━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━━━┛';
+  my $hdr = '+-----+-----+-----+-----+-----+-----+-----+-----+-----+-------+';
   my $balls  = '';
   my $scores = '';
 
@@ -64,80 +61,70 @@ sub card_as_text {
   INDEX: for my $i (0 .. 8) {
     my $frame = $frames[ $i ];
     unless ($frame) {
-      $_  .= '┃     ' for $balls, $scores;
+      $_  .= '|     ' for $balls, $scores;
       next INDEX;
     }
 
-    $balls .= sprintf '┃ %s ',
-      $self->_two_balls($frame->was_split, $frame->balls);
+    $balls .= sprintf '| %s ', $self->_two_balls($frame->balls);
 
     my $score = $card->score_through($i + 1);
     $scores .= defined $score
-             ? sprintf '┃ %3u ', $score
-             : '┃     ';
+             ? sprintf '| %3u ', $score
+             : '|     ';
   }
 
   TENTH: for (1) {
     my $frame = $frames[ 9 ];
 
     unless ($frame) {
-      $_ .= '┃       ┃' for $balls, $scores;
+      $_ .= '|       |' for $balls, $scores;
       last TENTH;
     }
 
-    $balls .= sprintf '┃ %s ┃',
-      $self->_three_balls($frame->was_split, $frame->balls);
+    $balls .= sprintf '| %s |', $self->_three_balls($frame->balls);
 
     my $score = $card->score_through(10);
 
     $scores .= defined $score
-             ? sprintf '┃   %3u ┃', $score
-             : '┃       ┃';
+             ? sprintf '|   %3u |', $score
+             : '|       |';
   }
 
   return "$hdr\n"
        . "$balls\n"
-       . "$scores\n"
-       . "$ftr\n";
+       . "$scores\n";
 }
 
-my @NUM = qw(
-  - 1 2 3 4 5 6 7 8 9
-    ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ 
-);
-
 sub _two_balls {
-  my ($self, $split, $b1, $b2) = @_;
+  my ($self, $b1, $b2) = @_;
 
   return '   ' unless defined $b1;
 
-  my $c = $NUM[ (9 * $split) + $b1 ];
-
   sprintf '%s %s',
-    $b1 == 10 ? '╳' : $c,
-    $b1 == 10 ? ' ' : defined $b2 ? $b1 + $b2 == 10 ? '◢' : $b2 || '-' : ' ';
+    $b1 == 10 ? 'X' : $b1 || '-',
+    $b1 == 10 ? ' ' : defined $b2 ? $b1 + $b2 == 10 ? '/' : $b2 || '-' : ' ';
 }
 
 sub _three_balls {
-  my ($self, $split, $b1, $b2, $b3) = @_;
+  my ($self, $b1, $b2, $b3) = @_;
 
   return '     ' unless defined $b1;
 
   if ($b1 == 10) {
-    return '╳    ' unless defined $b2;
+    return 'X    ' unless defined $b2;
 
-    return sprintf '╳ ╳ %s', defined $b3 ? $b3 == 10 ? '╳' : $b3 || '-' : ' '
+    return sprintf 'X X %s', defined $b3 ? $b3 == 10 ? 'X' : $b3 || '-' : ' '
       if $b2 == 10;
 
-    return sprintf '╳ %s', $self->_two_balls($split, $b2, $b3);
+    return sprintf 'X %s', $self->_two_balls($b2, $b3);
   } elsif (not defined $b2) {
     return sprintf '%s    ', $b1 || '-';
   } elsif ($b1 + $b2 == 10) {
     return sprintf '%s %s',
-      $self->_two_balls($split, $b1, $b2),
-      defined $b3 ? $b3 == 10 ? '╳' : $b3 || '-' : ' ';
+      $self->_two_balls($b1, $b2),
+      defined $b3 ? $b3 == 10 ? 'X' : $b3 || '-' : ' ';
   } else {
-    return sprintf '%s  ', $self->_two_balls($split, $b1, $b2);
+    return sprintf '%s  ', $self->_two_balls($b1, $b2);
   }
 }
 

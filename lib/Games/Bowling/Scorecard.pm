@@ -141,17 +141,23 @@ done.
 =cut
 
 sub record { ## no critic Ambiguous
-  my ($self, @balls) = @_;
+  my $self  = shift;
+  my $arg   = pop @_ if ref $_[-1];
+  my @balls = @_;
 
-  for my $ball (@balls) {
+  for my $i (0 .. $#balls) {
     Carp::croak "can't record more balls on a completed scorecard"
       if $self->is_done;
+
+    my ($ball, $arg) = ref $balls[$i]
+                     ? ($balls[$i][0], $balls[$i][1])
+                     : ($balls[$i]);
 
     for my $pending ($self->pending_frames) {
       $pending->record($ball);
     }
 
-    $self->current_frame->record($ball);
+    $self->current_frame->record($ball, $arg);
   }
 }
 
