@@ -1,4 +1,4 @@
-use strict;
+use v5.20.0;
 use warnings;
 
 package Games::Bowling::Scorecard::Frame;
@@ -47,14 +47,25 @@ are split.  This can only be passed on the first ball of a frame.
 
 =cut
 
-sub _split_ok { return ! @{ $_[0]{balls} } }
+sub _assert_split_ok {
+  my ($self, $ball) = @_;
+
+  if ($self->{balls}->@*) {
+    Carp::croak "can't record a split on second ball in a frame";
+  }
+
+  if ($ball >= 9) {
+    Carp::croak "you can't split if you knocked down $ball pins!";
+  }
+
+  return;
+}
 
 sub record { ## no critic Ambiguous
   my ($self, $ball, $arg) = @_;
 
   if ($arg->{split}) {
-    Carp::croak "can't record a split on second ball in a frame"
-      unless $self->_split_ok;
+    $self->_assert_split_ok($ball);
 
     $self->{split} = 1;
   }

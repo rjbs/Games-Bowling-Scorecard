@@ -1,4 +1,4 @@
-use strict;
+use v5.20.0;
 use warnings;
 package Games::Bowling::Scorecard;
 # ABSTRACT: score your bowling game easily
@@ -151,7 +151,6 @@ pins.
 
 sub record { ## no critic Ambiguous
   my $self  = shift;
-  my $arg   = pop @_ if ref $_[-1];
   my @balls = @_;
 
   for my $i (0 .. $#balls) {

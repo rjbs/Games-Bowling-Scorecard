@@ -1,6 +1,5 @@
 #!perl
-
-use strict;
+use v5.20.0;
 use warnings;
 
 use utf8;
@@ -21,13 +20,13 @@ use_ok($class);
   my $card = Games::Bowling::Scorecard->new;
 
   $card->record(6,1);
-  $card->record(7,2);
+  $card->record([ 7, { split => 1 } ], 2);
   $card->record(10);
-  $card->record(9);
+  $card->record([ 8, { split => 1 } ]);
 
   my $expected = join "\n",
     '┏━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━━━┓',
-    '┃ 6 1 ┃ 7 2 ┃ ╳   ┃ 9   ┃     ┃     ┃     ┃     ┃     ┃       ┃',
+    '┃ 6 1 ┃ ⑦ 2 ┃ ╳   ┃ ⑧   ┃     ┃     ┃     ┃     ┃     ┃       ┃',
     '┃   7 ┃  16 ┃     ┃     ┃     ┃     ┃     ┃     ┃     ┃       ┃',
     '┗━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━━━┛',
     '',
