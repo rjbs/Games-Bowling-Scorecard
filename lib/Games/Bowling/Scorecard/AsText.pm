@@ -1,4 +1,4 @@
-use v5.20.0;
+use v5.24.0;
 use warnings;
 package Games::Bowling::Scorecard::AsText;
 # ABSTRACT: format a bowling scorecard as text
