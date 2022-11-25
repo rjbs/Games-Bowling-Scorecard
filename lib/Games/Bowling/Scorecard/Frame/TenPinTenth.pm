@@ -58,6 +58,19 @@ sub roll_ok {
   }
 }
 
-sub _split_ok { return @{ $_[0]{balls} } <= 2 }
+sub _assert_split_ok {
+  my ($self, $ball) = @_;
+
+  if ($self->{balls}->@* > 2) {
+    Carp::croak "can't record a split on third ball in tenth frame";
+  }
+
+  if ($ball >= 9) {
+    Carp::croak "you can't split if you knocked down $ball pins!";
+  }
+
+  return;
+}
+
 
 300;
