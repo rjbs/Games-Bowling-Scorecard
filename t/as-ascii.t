@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More tests => 35;
 
-my $class = 'Games::Bowling::Scorecard::AsText';
+my $class = 'Games::Bowling::Scorecard::AsASCII';
 
 use_ok('Games::Bowling::Scorecard');
 use_ok($class);
