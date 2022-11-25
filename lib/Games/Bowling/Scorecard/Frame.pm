@@ -36,11 +36,14 @@ sub new {
 
 =method record
 
-  $frame->record($ball);
+  $frame->record($ball, \%arg);
 
 This method records a single ball against the frame.  This method is used for
 both the current frame and for pending frames.  It updates the frame's score
 and whether the frame is done or pending.
+
+The only valid argument in C<%arg> is C<split>. If true, it indicates the pins
+are split.  This can only be passed on the first ball of a frame.
 
 =cut
 

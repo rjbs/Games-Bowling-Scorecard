@@ -138,6 +138,15 @@ For example:
 An exception will be raised if this method is called on a scorecard that's
 done.
 
+If you need to record a ball with more arguments, you can pass them together in
+an array reference.  For example, to pick up an incredible 7-10 split, you
+might call:
+
+  $card->record([ 8, { split => 1 } ], 2);
+
+The first ball records that it's a split, and the second ball just gets two
+pins.
+
 =cut
 
 sub record { ## no critic Ambiguous
