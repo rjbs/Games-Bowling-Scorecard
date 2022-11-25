@@ -1,6 +1,5 @@
 #!perl
-
-use strict;
+use v5.20.0;
 use warnings;
 
 use Test::More tests => 52;

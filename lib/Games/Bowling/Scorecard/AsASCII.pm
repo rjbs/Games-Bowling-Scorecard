@@ -1,4 +1,4 @@
-use strict;
+use v5.20.0;
 use warnings;
 package Games::Bowling::Scorecard::AsASCII;
 # ABSTRACT: format a bowling scorecard as ASCII text
