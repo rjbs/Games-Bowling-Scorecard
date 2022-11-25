@@ -1,6 +1,7 @@
 Changelog for Games-Bowling-Scorecard
 
 {{$NEXT}}
+        - update dist metadata
 
 0.105     2013-09-24 20:56:26 America/New_York
           replace a busted-on-Win32 test file
